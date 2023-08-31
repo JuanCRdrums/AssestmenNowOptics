@@ -1,4 +1,6 @@
-﻿namespace AssestmenNowOptics.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AssestmenNowOptics.Models
 {
     public class StoreProductMapping
     {

@@ -1,4 +1,5 @@
 ﻿using AssestmenNowOptics.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace AssestmenNowOptics.DataAccess.Impl
 {

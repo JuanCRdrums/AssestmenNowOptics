@@ -30,6 +30,7 @@ builder.Services.AddDbContext<AssesmentDbContext>(options =>
 //register repositories
 builder.Services.AddScoped<IStoreRepository, StoreRepository>();
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
+builder.Services.AddScoped<IStoreProductMappingRepository, StoreProductMappingRepository>();
 
 var app = builder.Build();
 

@@ -4,6 +4,6 @@
     {
         public int ProductId { get; set; }
         public string ProductName { get; set; } = "";
-        public StoreProductMapping[] storeProductMappings { get; set; } = new StoreProductMapping[0];
+        public virtual ICollection<StoreProductMapping> storeProductMappings { get; set; } = new List<StoreProductMapping>();
     }
 }

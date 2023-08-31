@@ -20,9 +20,8 @@ namespace AssestmenNowOptics
         {
             base.OnModelCreating(modelBuilder);
 
-            // Definir relaciones y claves foráneas
             modelBuilder.Entity<StoreProductMapping>()
-                .HasKey(mapping => new { mapping.StoreId, mapping.ProductId });
+                .HasKey(mapping => new { mapping.MappingId });
 
             modelBuilder.Entity<StoreProductMapping>()
                 .HasOne(mapping => mapping.Store)
@@ -33,6 +32,11 @@ namespace AssestmenNowOptics
                 .HasOne(mapping => mapping.Product)
                 .WithMany(product => product.storeProductMappings)
                 .HasForeignKey(mapping => mapping.ProductId);
+
+            modelBuilder.Entity<StoreProductMapping>().Navigation(s => s.Store).UsePropertyAccessMode(PropertyAccessMode.Field);
+            modelBuilder.Entity<StoreProductMapping>().Navigation(s => s.Product).UsePropertyAccessMode(PropertyAccessMode.Field);
+            modelBuilder.Entity<Product>().Navigation(s => s.storeProductMappings).UsePropertyAccessMode(PropertyAccessMode.Field);
+            modelBuilder.Entity<Store>().Navigation(s => s.storeProductMappings).UsePropertyAccessMode(PropertyAccessMode.Field);
         }
     }
 }
