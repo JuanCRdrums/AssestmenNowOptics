@@ -59,26 +59,42 @@ namespace AssestmenNowOptics.Controllers
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] StoreRequest request)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+                var store = _storeRepository.GetStore(id);
+                if (store == null)
+                {
+                    return StatusCode(204, "The requested store doesn't exist");
+                }
+                store.StoreName = request.StoreName;
+                _storeRepository.Update(store);
+                return Ok(store);
             }
-            var store = _storeRepository.GetStore(id);
-            if(store == null)
+            catch (Exception e)
             {
-                return StatusCode(204, "The requested store doesn't exist");
+                return StatusCode(500, e.Message);
             }
-            store.StoreName = request.StoreName;
-            _storeRepository.Update(store);
-            return Ok(store);
+
         }
 
         // DELETE api/<StoreController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            _storeRepository.Delete(id);
-            return Ok("Store deleted");
+            try
+            {
+                _storeRepository.Delete(id);
+                return Ok("Store deleted");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+
         }
     }
 }
